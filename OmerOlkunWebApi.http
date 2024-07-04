@@ -1,0 +1,6 @@
+@OmerOlkunWebApi_HostAddress = http://localhost:5064
+
+GET {{OmerOlkunWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
