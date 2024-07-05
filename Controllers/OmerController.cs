@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-
+using System.Net;
+using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 
 
@@ -60,6 +61,36 @@ public class OmController : ControllerBase
         {
             throw new Exception("Failed to retrieve token");
         }
+    }
+    
+    [HttpPost("satislar-getir")]
+    public async Task<IActionResult> SatislarGetir()
+    {
+         try
+        {
+            string username = "test@test.com";
+            string password = "Test123.";
+            var token= await GetTokenAsync("http://istest.birfatura.net/token", username, password);
+            dynamic data = JObject.Parse(token);
+            string tokenValue = data.access_token.ToString();
+            string url = "http://istest.birfatura.net/api/test/SatislarGetir";
+
+            HttpClient client = new HttpClient();
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenValue);
+            var response = await client.SendAsync(requestMessage);
+            var contents  = await response.Content.ReadAsStringAsync();
+
+
+        
+            return Ok(contents);
+
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { Error = e.Message });
+        }        
     }
 
 
