@@ -39,3 +39,8 @@
 /home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/obj/Debug/net8.0/OmerOlkunWebApi.genruntimeconfig.cache
 /home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/obj/Debug/net8.0/ref/OmerOlkunWebApi.dll
 /home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/bin/Debug/net8.0/System.Web.Cors.dll
+/home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/bin/Debug/net8.0/System.Net.Http.Formatting.dll
+/home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/bin/Debug/net8.0/System.Web.Http.dll
+/home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/bin/Debug/net8.0/System.Web.Http.Cors.dll
+/home/om/test-board/dotnets/BirFaturaTask/OmerOlkunWebApi/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll

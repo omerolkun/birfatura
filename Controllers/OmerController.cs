@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
@@ -7,7 +8,7 @@ using Newtonsoft.Json.Linq;
 namespace OmerOlkunWebApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("")]
 public class OmController : ControllerBase
 {
     private readonly HttpClient _httpClient;
@@ -63,7 +64,8 @@ public class OmController : ControllerBase
         }
     }
     
-    [HttpPost("satislar-getir")]
+    [EnableCors("Policy1")]
+    [HttpPost]
     public async Task<IActionResult> SatislarGetir()
     {
          try
@@ -80,8 +82,9 @@ public class OmController : ControllerBase
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenValue);
             var response = await client.SendAsync(requestMessage);
-            var contents  = await response.Content.ReadAsStringAsync();
+            var contents  = await response.Content.ReadAsStreamAsync();
 
+            Console.WriteLine("type of contents: " + contents.GetType());
 
         
             return Ok(contents);
