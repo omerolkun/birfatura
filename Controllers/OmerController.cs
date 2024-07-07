@@ -16,54 +16,31 @@ public class OmController : ControllerBase
 {
     private readonly HttpClient _httpClient;
 
-    public OmController(HttpClient hc)
+    public OmController(HttpClient httpclient)
     {
-        _httpClient = hc;
+        _httpClient = httpclient;
     }
 
+    [EnableCors("Policy1")]
     [HttpPost("make-pdf")]
-    public async Task<string> GeneratePdf([FromBody] SoldItemDTO item)
+    public async Task<IActionResult> GeneratePdf([FromBody] SoldItemDTO item)
     {
-        string path = item.Id + ".pdf";
-        string result = "Information of " + item.Name + "is following... \nId:" + item.Id + "\nName: " + item.Name + "\nStok Kodu: " + item.Code + "\nKdv Orani: " + item.KdvRatio + "\nKdv Dahil Birim Fiyati: " + item.UnitPrice;
-
-        
+        string path = item.Id + "-IdNumaraliUrunInfo.pdf"; // bu path Projenin oldugu dizine cikartiyor pdf'yi. path ayarlanarak istenilen dizine cikartilabilir.
+        string result = "Information of " + item.Name + " is following... \nId:" + item.Id + "\nName: " + item.Name + "\nStok Kodu: " + item.Code + "\nKdv Orani: " + item.KdvRatio;
+        result += "\nKdv Dahil Birim Fiyati: " + item.UnitPrice;
         using( PdfWriter writer = new PdfWriter(path))
         {
-            using (PdfDocument doc = new PdfDocument(writer))            
+            using (PdfDocument pdfDoc = new PdfDocument(writer))            
             {
-                Document d = new Document(doc);
-                d.Add(new Paragraph(result));
-                d.Close();
-
+                Document doc = new Document(pdfDoc);
+                doc.Add(new Paragraph(result));
+                doc.Close();
             }
         }
-        Console.WriteLine("hadi bakalim");
-
-        
-        return "hey";
+        return Ok();
     }
 
 
-
-    [HttpPost("get-token")]
-    public async Task<IActionResult> GetToken()
-    {
-        try
-        {
-            string username = "test@test.com";
-            string password = "Test123.";
-            var token= await GetTokenAsync("http://istest.birfatura.net/token", username, password);
-            dynamic data = JObject.Parse(token);
-            string tokenValue = data.access_token.ToString();
-            return Ok(tokenValue);
-
-        }
-        catch (Exception e)
-        {
-            return BadRequest(new { Error = e.Message });
-        }
-    }
 
     private async Task<string> GetTokenAsync(string url, string username, string password)
     {
@@ -84,7 +61,7 @@ public class OmController : ControllerBase
         if (response.IsSuccessStatusCode)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
-            return responseContent; // Assuming the token is returned as plain text. Adjust as necessary.
+            return responseContent; 
         }
         else
         {
@@ -115,9 +92,6 @@ public class OmController : ControllerBase
             var response = await client.SendAsync(requestMessage);
             var contents  = await response.Content.ReadAsStreamAsync();
 
-            Console.WriteLine("type of contents: " + contents.GetType());
-
-        
             return Ok(contents);
 
         }
@@ -127,11 +101,5 @@ public class OmController : ControllerBase
         }        
     }
 
-
-    [HttpGet]
-    public IActionResult Get()
-    {
-        return Ok("hello om");
-    }
 }
 

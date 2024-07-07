@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OmerOlkunWebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9723abb0fccb2d7dea81c1d6b2d8109e0a299946")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5abe666e1277ad7ebc0f7b4f326f729f3ade4d31")]
 [assembly: System.Reflection.AssemblyProductAttribute("OmerOlkunWebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OmerOlkunWebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

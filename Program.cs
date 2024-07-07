@@ -1,7 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-//omers
-
+//added by omer olkun 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Policy1",
@@ -14,7 +13,6 @@ builder.Services.AddCors(options =>
 
 
 });
-//omers
 
 // Add services to the container.
 
@@ -23,14 +21,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//omers
-builder.Services.AddHttpClient();
-//omers
+builder.Services.AddHttpClient(); //added by omer olkun 
 
 var app = builder.Build();
-//omers
-app.UseCors("Policy1");
-//omes
+app.UseCors("Policy1"); //added by omer olkun
 
 
 // Configure the HTTP request pipeline.
