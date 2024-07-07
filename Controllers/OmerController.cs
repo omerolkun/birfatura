@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using OmerOlkunWebApi.Dtos;
 using Microsoft.AspNetCore.Cors;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 
 namespace OmerOlkunWebApi.Controllers;
 
@@ -17,6 +20,31 @@ public class OmController : ControllerBase
     {
         _httpClient = hc;
     }
+
+    [HttpPost("make-pdf")]
+    public async Task<string> GeneratePdf([FromBody] SoldItemDTO item)
+    {
+        string path = item.Id + ".pdf";
+        string result = "Information of " + item.Name + "is following... \nId:" + item.Id + "\nName: " + item.Name + "\nStok Kodu: " + item.Code + "\nKdv Orani: " + item.KdvRatio + "\nKdv Dahil Birim Fiyati: " + item.UnitPrice;
+
+        
+        using( PdfWriter writer = new PdfWriter(path))
+        {
+            using (PdfDocument doc = new PdfDocument(writer))            
+            {
+                Document d = new Document(doc);
+                d.Add(new Paragraph(result));
+                d.Close();
+
+            }
+        }
+        Console.WriteLine("hadi bakalim");
+
+        
+        return "hey";
+    }
+
+
 
     [HttpPost("get-token")]
     public async Task<IActionResult> GetToken()
@@ -63,6 +91,9 @@ public class OmController : ControllerBase
             throw new Exception("Failed to retrieve token");
         }
     }
+    
+
+
     
     [EnableCors("Policy1")]
     [HttpPost]
